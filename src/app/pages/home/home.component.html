@@ -1,0 +1,66 @@
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h2>Busca tus peliculas</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <label>Titulo</label>
+                    <input #titulo type="text" class="form-control" [(ngModel)]="Filter.Titulo"/>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <label>Director</label>
+                    <input #director type="text" class="form-control" [(ngModel)]="Filter.Director"/>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <label>Costo Alquiler</label>
+                    <input #precio type="text" pKeyFilter="num" class="form-control" [(ngModel)]="Filter.CostoAlquiler"/>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <label>Cantidad Inventario</label>
+                    <input #cantidad type="text" pKeyFilter="int" class="form-control" [(ngModel)]="Filter.CantidaInventario"/>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <label>Actores</label>
+                    <p-autoComplete (onSelect)="cargarGrid()" [(ngModel)]="Filter.Actores" [suggestions]="ResultActores" [multiple]="true" (completeMethod)="search($event)" field="Nombre" [style]="{'min-width':'100%'}" ></p-autoComplete>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card" *ngFor="let item of DataGrid">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <img width="100%" src="../assets/images/pelicula.jpg" />
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7">
+                            <h1>{{ item.Titulo }}</h1>
+                            <p><strong>Dirigida por:</strong> {{ item.Director }}</p>
+                            <p><strong>Actores:</strong> {{ mapearActores(item.Actores) }}</p>
+                            <p><strong>Precio Alquiler:</strong> {{ item.CostoAlquiler | currency:'COP' }}</p>
+                            <p><strong>Cantidad Disponible:</strong> {{ item.CantidaInventario }}</p>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <button style="position:absolute; bottom: 10px; right: 10px;" class="btn btn-primary" (click)="reservar(item.Codigo)">Reservar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-center p-2">
+                <ngb-pagination  [maxSize]="15" [collectionSize]="collectionSize" (pageChange)="onChange($event)" [(page)]="page" [pageSize]="pageSize">
+                </ngb-pagination>
+              
+                <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (change)="cargarGrid()">
+                  <option [ngValue]="5">5 Items por página</option>
+                  <option [ngValue]="10">10 Items por página</option>
+                  <option [ngValue]="20">20 Items por página</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

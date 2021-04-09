@@ -1,0 +1,93 @@
+<style>
+    
+  @media (max-width: 991.98px){    
+      .showResponsive{
+          display: inline-block!important;
+      }
+  }
+</style>
+<div id="alertComponent" class="customModal hidemodal">
+  <button type="button" class="close" id="closeAlert">
+      <span aria-hidden="true">&times;</span>
+  </button>
+  <strong>Información</strong> <p></p>
+</div>
+
+<div id="loadingComponent" class="loadingModal" style="display: none;">
+  <div class="loadingMessage" align="center">
+      <img src="../assets/images/loading.gif" style="width: 200px" /><br>
+      <span></span>
+  </div>
+</div>
+
+<div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar" style="z-index: 1039;">
+  <div class="c-sidebar-brand"><img class="c-sidebar-brand-full" src="../assets/images/logo.png" width="118" height="46" alt="CoreUI Logo"><img class="c-sidebar-brand-minimized" src="../assets/images/logo-signet.png" width="46" height="46" alt="CoreUI Logo"></div>
+  <ul class="c-sidebar-nav csb">
+      <li class="c-sidebar-nav-item">
+          <a class="c-sidebar-nav-link" [routerLink]="'/inicio'">
+              <i class="c-sidebar-nav-icon cil-home"></i>Inicio
+          </a>
+      </li>
+      <li class="c-sidebar-nav-item" (click)="mostrarReservas()" *ngIf="isAuthenticated()">
+          <a class="c-sidebar-nav-link">
+              <i class="c-sidebar-nav-icon cil-movie"></i>Mis Reservas
+          </a>
+      </li>
+      <li class="c-sidebar-nav-item" *ngIf="isAdmin">
+          <a class="c-sidebar-nav-link" [routerLink]="'/peliculas'">
+              <i class="c-sidebar-nav-icon cil-movie"></i>Peliculas
+          </a>
+      </li>
+      <li class="c-sidebar-nav-item" *ngIf="isAdmin">
+          <a class="c-sidebar-nav-link" [routerLink]="'/actores'">
+              <i class="c-sidebar-nav-icon cil-user"></i>Actores
+          </a>
+      </li>
+      <li class="c-sidebar-nav-item" *ngIf="isAdmin">
+          <a class="c-sidebar-nav-link" [routerLink]="'/usuarios'">
+              <i class="c-sidebar-nav-icon cil-user"></i>Usuarios
+          </a>
+      </li>
+      <li class="c-sidebar-nav-item" *ngIf="isAdmin">
+          <a class="c-sidebar-nav-link" [routerLink]="'/devolucion'">
+              <i class="c-sidebar-nav-icon cil-user"></i>Devoluciones
+          </a>
+      </li>
+  </ul>
+  <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
+</div>
+
+<div class="c-wrapper">
+  <header class="c-header c-header-light c-header-fixed c-header-with-subheader" style="width: auto !important; height: 56px;">
+      <button class="c-header-toggler c-class-toggler d-lg-none mr-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show"><span class="c-header-toggler-icon"></span></button><a style="display: none;" class="c-header-brand d-sm-none" href="#"><img class="c-header-brand" src="../assets/images/logo.png" width="97" height="46" alt="CoreUI Logo"></a>
+      <button class="c-header-toggler c-class-toggler ml-3 d-md-down-none" type="button" data-target="#sidebar" data-class="c-sidebar-lg-show" responsive="true"><span class="c-header-toggler-icon"></span></button>
+      
+      <ul class="c-header-nav ml-auto mr-4">
+          <li class="c-header-nav-item d-md-down-none mx-2 showResponsive">
+              <a class="c-header-nav-link" href="#">
+                  <span style="font-size: 20px;"><strong>{{ CurrentTitle }}</strong></span>
+              </a>
+          </li>
+          <li class="c-header-nav-item d-md-down-none mx-2 showResponsive" *ngIf="isAuthenticated()" [ngbTooltip]="'Cerrar Sesión'">
+              <a class="c-header-nav-link" href="javascript:void(0)">
+                  <i class="c-icon cil-power-standby" onclick="LogOut()"></i>
+              </a>
+          </li>
+          <li class="c-header-nav-item d-md-down-none mx-2 showResponsive" *ngIf="!isAuthenticated()" [ngbTooltip]="'Iniciar Sesión'" (click)="login()">
+              <a class="c-header-nav-link" href="javascript:void(0)">
+                  <i class="c-icon cil-user"></i>
+              </a>
+          </li>
+      </ul>
+  </header>
+  
+  <div class="c-body" >
+      <main style="width: 100%;">
+          <router-outlet></router-outlet>
+      </main>
+  </div>
+
+  <footer align="center" style="width: 100%;">
+      <br>
+  </footer>
+</div>

@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{ Title }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.close(false)">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <p>{{ Message }}</p>
+</div>
+
+<div class="modal-footer" align="right">
+    <button class="btn btn-primary" (click)="activeModal.close(true)"><i class="cil-thumb-up"></i> {{ labelAceptar }}</button>&nbsp;
+    <button class="btn btn-danger" (click)="activeModal.close(false)"><i class="cil-thumb-down"></i> {{ labelCancelar }}</button>
+</div>
